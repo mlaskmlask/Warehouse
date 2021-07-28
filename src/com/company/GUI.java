@@ -61,11 +61,18 @@ public class GUI {
         String productName = skaner.nextLine();
         Product productFromDataBase = ProductRepository.getInstance().findProduct(productName);
         if (productFromDataBase != null) {
-            System.out.println("Podaj ilość");
-            int productPieces = Integer.parseInt(skaner.nextLine());
-            productFromDataBase.setPieces(productFromDataBase.getPieces() + productPieces);
-            System.out.println("Dodano produkt");
-            showMainMenu();
+            try{
+                System.out.println("Podaj ilość");
+                int productPieces = Integer.parseInt(skaner.nextLine());
+                productFromDataBase.setPieces(productFromDataBase.getPieces() + productPieces);
+                System.out.println("Dodano produkt");
+                showMainMenu();
+            }catch (NumberFormatException e){
+                System.out.println("Nieprawidłowa liczba");
+                addProduct();
+
+            }
+
         } else {
             addNewProduct(productName);
 
@@ -105,14 +112,19 @@ public class GUI {
     }
 
     private static DataWrapper readCommonData() {
-        System.out.println("Podaj wielkość");
-        int size = Integer.parseInt(skaner.nextLine());
-        System.out.println("Podaj kolor");
-        String color = skaner.nextLine();
-        System.out.println("Podaj ilość cztuk");
-        int pieces = Integer.parseInt(skaner.nextLine());
+        try {
+            System.out.println("Podaj wielkość");
+            int size = Integer.parseInt(skaner.nextLine());
+            System.out.println("Podaj kolor");
+            String color = skaner.nextLine();
+            System.out.println("Podaj ilość cztuk");
+            int pieces = Integer.parseInt(skaner.nextLine());
 
-        return new DataWrapper(size, color, pieces);
+            return new DataWrapper(size, color, pieces);
+        } catch (NumberFormatException e) {
+            System.out.println("Niepoprawna liczba");
+            return readCommonData();
+        }
     }
 
     static class DataWrapper {
