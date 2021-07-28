@@ -68,7 +68,7 @@ public class GUI {
                 System.out.println("Dodano produkt");
                 showMainMenu();
             }catch (NumberFormatException e){
-                System.out.println("Nieprawidłowa liczba.");
+                System.out.println("Nieprawidłowa liczba");
                 addProduct();
             }
 
